@@ -54,10 +54,10 @@ public class GameAlgorithms {
         if (target < sortedMatchIds[mid]) {
             return findMatchRecursiveHelper(sortedMatchIds, target, low, mid - 1);
         }
-        else if (target > sortedMatchIds[mid]){
+        else if (target > sortedMatchIds[mid]){  //Doesn't need to be an else-if statement
             return findMatchRecursiveHelper(sortedMatchIds, target, mid + 1, high);
         }
-
+        //This is not needed, as it can never be reached
         return -1;
     }
     /**
@@ -68,12 +68,31 @@ public class GameAlgorithms {
      * @return index of target, or -1 if not found
      */public static int findMatchIterative(int[] sortedMatchIds, int target) {
          // implementing an iterative (looping through the array) binary search
+        //This is not a binary search, this is a linear search
         for (int i = 0; i < (sortedMatchIds.length - 1); i++) {
             if (sortedMatchIds[i] == target) {
                 return i;
             }
         }
         return -1;
+        //This would be a binary search
+        /*
+        int low = 0;
+        int high = sortedMatchIds.length - 1;
+
+        while (low <= high) { //while not empty
+            int middle = (low + high)/2;
+
+            if (target == sortedMatchIds[middle]) {
+                return middle;
+            } else if (target < sortedMatchIds[middle]) {
+                high = middle - 1;
+            } else {
+                low = middle + 1;
+            }
+        }
+        return -1;
+        */
      }
 
      /**
@@ -96,12 +115,17 @@ public class GameAlgorithms {
 
          // validation
          if (startRow < 0
-                 || startRow >= totalRows
+                 || startRow >= totalRows //Could use isOutOfBounds
                  || startCol < 0
                  || startCol >= totalColumns
                  || map[startRow][startCol] != '.') {
              return 0;
          }
+         /*
+         if(isOutOfBounds(map, startRow, startCol) || map[startRow][startCol] != '.'){
+            return 0;
+         }
+         */
 
          // represents the flood-fill part
          map[startRow][startCol] = '#';
@@ -164,7 +188,7 @@ public class GameAlgorithms {
                  int currentColumn = column + d[1];
 
                  if (currentRow >= 0
-                         && currentRow < totalRows
+                         && currentRow < totalRows //Could use isOutOfBonds
                          && currentColumn >= 0
                          && currentColumn < totalColumns
                          && map[currentRow][currentColumn] == '.'
